@@ -8,19 +8,21 @@
     <VBox styleClass="auth-box">
         <Label styleClass="auth-title" text="STEAM" />
 
+        <Label fx:id="authMessageLabel" style="-fx-text-fill: #ff5555; -fx-font-size: 14px; -fx-font-weight: bold;" visible="false" managed="false"/>
+
         <VBox fx:id="loginForm" spacing="20.0" alignment="TOP_CENTER">
             <VBox styleClass="auth-input-container">
                 <Label styleClass="auth-label" text="ACCOUNT NAME" />
-                <TextField promptText="username" styleClass="auth-input" />
+                <TextField fx:id="loginUsernameField" promptText="username" styleClass="auth-input" />
             </VBox>
 
             <VBox styleClass="auth-input-container">
                 <Label styleClass="auth-label" text="PASSWORD" />
-                <PasswordField promptText="password" styleClass="auth-input" />
+                <PasswordField fx:id="loginPasswordField" promptText="password" styleClass="auth-input" />
             </VBox>
 
             <VBox alignment="CENTER" spacing="10.0">
-                <Button onAction="#bypassLogin" styleClass="auth-primary-btn" text="Sign In" />
+                <Button onAction="#handleLogin" styleClass="auth-primary-btn" text="Sign In" />
                 <Button onAction="#showRegisterForm" styleClass="auth-secondary-btn" text="Don't have an account? Create Free Account" />
             </VBox>
         </VBox>
@@ -28,21 +30,21 @@
         <VBox fx:id="registerForm" spacing="20.0" alignment="TOP_CENTER" visible="false" managed="false">
             <VBox styleClass="auth-input-container">
                 <Label styleClass="auth-label" text="CHOOSE ACCOUNT NAME" />
-                <TextField promptText="username" styleClass="auth-input" />
+                <TextField fx:id="regUsernameField" promptText="username" styleClass="auth-input" />
             </VBox>
 
             <VBox styleClass="auth-input-container">
                 <Label styleClass="auth-label" text="CHOOSE PASSWORD" />
-                <PasswordField promptText="password" styleClass="auth-input" />
+                <PasswordField fx:id="regPasswordField" promptText="password" styleClass="auth-input" />
             </VBox>
 
             <VBox styleClass="auth-input-container">
                 <Label styleClass="auth-label" text="CONFIRM PASSWORD" />
-                <PasswordField promptText="re-type password" styleClass="auth-input" />
+                <PasswordField fx:id="regConfirmPasswordField" promptText="re-type password" styleClass="auth-input" />
             </VBox>
 
             <VBox alignment="CENTER" spacing="10.0">
-                <Button onAction="#bypassLogin" styleClass="auth-primary-btn" text="Create Account" />
+                <Button onAction="#handleRegister" styleClass="auth-primary-btn" text="Create Account" />
                 <Button onAction="#showLoginForm" styleClass="auth-secondary-btn" text="Already have an account? Sign In" />
             </VBox>
         </VBox>

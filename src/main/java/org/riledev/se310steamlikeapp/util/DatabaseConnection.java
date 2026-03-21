@@ -10,7 +10,7 @@ public class DatabaseConnection {
     private Connection connection;
     private static final String DB_URL = "jdbc:sqlite:steamdb.sqlite";
 
-    public DatabaseConnection(){
+    private DatabaseConnection(){
         try {
             connection = DriverManager.getConnection(DB_URL);
             try (Statement stmt = connection.createStatement()) {
