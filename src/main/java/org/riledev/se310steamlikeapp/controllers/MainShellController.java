@@ -23,7 +23,6 @@ public class MainShellController {
 
     @FXML
     public void initialize() {
-        // Bind the buttons to load their respective views
         storeButton.setOnAction(e -> switchView("views/store.fxml", storeButton));
         libraryButton.setOnAction(e -> switchView("views/library.fxml", libraryButton));
         communityButton.setOnAction(e -> switchView("views/community.fxml", communityButton));
@@ -32,21 +31,16 @@ public class MainShellController {
 
     private void switchView(String fxmlPath, Button activeBtn) {
         try {
-            // Load the new view
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/riledev/se310steamlikeapp/" + fxmlPath));
             Node view = loader.load();
 
-            // Set the new view in the center of the BorderPane
             mainContainer.setCenter(view);
 
-            // Update navigation button styles visually
             resetNavStyles();
             activeBtn.getStyleClass().add("active-nav");
 
         } catch (IOException e) {
             System.err.println("Notice: View " + fxmlPath + " not created yet.");
-            // We swallow the exception here so the app doesn't crash if you click a button
-            // for a view you haven't built yet (like store.fxml).
         }
     }
 

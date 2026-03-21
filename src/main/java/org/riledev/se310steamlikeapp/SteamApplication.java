@@ -10,9 +10,9 @@ import java.io.IOException;
 public class SteamApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(SteamApplication.class.getResource("views/main-shell.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SteamApplication.class.getResource("views/auth.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1080, 720);
-        stage.setTitle("Steam");
+        stage.setTitle("Steam Login");
         stage.setScene(scene);
         stage.show();
     }
