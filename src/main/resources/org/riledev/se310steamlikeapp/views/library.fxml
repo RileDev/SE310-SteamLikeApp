@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+<ScrollPane fitToWidth="true" styleClass="library-background" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <content>
+        <FlowPane hgap="25.0" styleClass="library-grid" vgap="25.0">
+
+            <VBox alignment="CENTER" prefWidth="220.0" spacing="12.0" styleClass="game-card">
+                <Rectangle fill="#3b5a75" height="280.0" width="190.0" arcHeight="10.0" arcWidth="10.0"/>
+                <Label styleClass="game-title" text="The Elder Scrolls II: Daggerfall" textAlignment="CENTER" wrapText="true" />
+                <Label styleClass="game-time" text="34 hrs on record" />
+                <Button styleClass="play-button" text="PLAY" />
+            </VBox>
+
+            <VBox alignment="CENTER" prefWidth="220.0" spacing="12.0" styleClass="game-card">
+                <Rectangle fill="#3b5a75" height="280.0" width="190.0" arcHeight="10.0" arcWidth="10.0"/>
+                <Label styleClass="game-title" text="Clair Obscur: Expedition 33" textAlignment="CENTER" wrapText="true" />
+                <Label styleClass="game-time" text="0 hrs on record" />
+                <Button styleClass="install-button" text="INSTALL" />
+            </VBox>
+
+            <VBox alignment="CENTER" prefWidth="220.0" spacing="12.0" styleClass="game-card">
+                <Rectangle fill="#3b5a75" height="280.0" width="190.0" arcHeight="10.0" arcWidth="10.0"/>
+                <Label styleClass="game-title" text="Silent Hill 2" textAlignment="CENTER" wrapText="true" />
+                <Label styleClass="game-time" text="12 hrs on record" />
+                <Button styleClass="play-button" text="PLAY" />
+            </VBox>
+
+            <VBox alignment="CENTER" prefWidth="220.0" spacing="12.0" styleClass="game-card">
+                <Rectangle fill="#3b5a75" height="280.0" width="190.0" arcHeight="10.0" arcWidth="10.0"/>
+                <Label styleClass="game-title" text="Deus Ex: Game of the Year" textAlignment="CENTER" wrapText="true" />
+                <Label styleClass="game-time" text="89 hrs on record" />
+                <Button styleClass="play-button" text="PLAY" />
+            </VBox>
+
+        </FlowPane>
+    </content>
+</ScrollPane>
