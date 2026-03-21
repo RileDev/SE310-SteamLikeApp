@@ -1,14 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
+<ScrollPane fitToWidth="true" styleClass="library-background" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.riledev.se310steamlikeapp.controllers.CommunityController">
+    <content>
+        <VBox styleClass="community-container">
 
-</AnchorPane>
+            <Label styleClass="section-title" text="Community Activity" />
+
+            <HBox styleClass="composer-box">
+                <VBox styleClass="post-avatar-frame" maxHeight="60.0" maxWidth="60.0">
+                    <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="false">
+                        <image>
+                            <Image url="@../assets/profile/default.jpg" />
+                        </image>
+                    </ImageView>
+                </VBox>
+
+                <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                    <TextArea fx:id="postTextArea" promptText="What's on your mind? Share your thoughts or game updates..." styleClass="post-text-area" wrapText="true" />
+                    <HBox alignment="CENTER_RIGHT">
+                        <Button onAction="#handlePostUpload" styleClass="post-action-button" text="Post" />
+                    </HBox>
+                </VBox>
+            </HBox>
+
+            <Region styleClass="community-divider" />
+
+            <VBox spacing="20.0">
+
+                <HBox styleClass="post-container">
+                    <VBox styleClass="post-avatar-frame" maxHeight="60.0" maxWidth="60.0">
+                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="false">
+                            <image>
+                                <Image url="@../assets/profile/default.jpg" />
+                            </image>
+                        </ImageView>
+                    </VBox>
+
+                    <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                        <HBox alignment="BOTTOM_LEFT" spacing="10.0">
+                            <Label styleClass="post-username" text="snake" />
+                            <Label styleClass="post-date" text="Posted on Oct 15, 2025 at 14:30" />
+                        </HBox>
+                        <Label styleClass="post-content" text="Just started a new playthrough of Deus Ex. The atmosphere is still absolutely incredible after all these years. Can't wait to see how the stealth mechanics hold up." wrapText="true" />
+                    </VBox>
+                </HBox>
+
+                <HBox styleClass="post-container">
+                    <VBox styleClass="post-avatar-frame" maxHeight="60.0" maxWidth="60.0">
+                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="false">
+                            <image>
+                                <Image url="@../assets/profile/default.jpg" />
+                            </image>
+                        </ImageView>
+                    </VBox>
+
+                    <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                        <HBox alignment="BOTTOM_LEFT" spacing="10.0">
+                            <Label styleClass="post-username" text="gustave" />
+                            <Label styleClass="post-date" text="Posted on Oct 14, 2025 at 09:15" />
+                        </HBox>
+                        <Label styleClass="post-content" text="Is anyone else excited for Clair Obscur: Expedition 33? The turn-based mechanics mixed with real-time dodging look like a huge evolution for the genre. Adding it to my wishlist!" wrapText="true" />
+                    </VBox>
+
+                </HBox>
+
+                <HBox styleClass="post-container">
+                    <VBox styleClass="post-avatar-frame" maxHeight="60.0" maxWidth="60.0">
+                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="false">
+                            <image>
+                                <Image url="@../assets/profile/default.jpg" />
+                            </image>
+                        </ImageView>
+                    </VBox>
+
+                    <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                        <HBox alignment="BOTTOM_LEFT" spacing="10.0">
+                            <Label styleClass="post-username" text="leon_kennedy" />
+                            <Label styleClass="post-date" text="Posted on Oct 14, 2025 at 09:15" />
+                        </HBox>
+                        <Label styleClass="post-content" text="Resident Evil Requiem works fine on RTX5090!" wrapText="true" />
+                    </VBox>
+
+                </HBox>
+
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>

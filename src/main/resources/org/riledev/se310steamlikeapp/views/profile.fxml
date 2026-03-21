@@ -1,14 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
+<ScrollPane fitToWidth="true" styleClass="library-background" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.riledev.se310steamlikeapp.controllers.ProfileController">
+    <content>
+        <VBox styleClass="profile-container">
 
-</AnchorPane>
+            <HBox fx:id="profileHeaderBackground" styleClass="profile-header">
+
+                <VBox styleClass="profile-avatar-frame">
+                    <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="false">
+                        <image>
+                            <Image url="@../assets/profile/default.jpg" />
+                        </image>
+                    </ImageView>
+                </VBox>
+
+                <VBox alignment="CENTER_LEFT" spacing="5.0">
+                    <Label styleClass="profile-username-large" text="student_dev" />
+                    <Label styleClass="profile-status-online" text="Online" />
+                    <Label styleClass="profile-stats-text" text="Games Owned: 2" style="-fx-padding: 15 0 0 0;" />
+                    <Label styleClass="profile-stats-text" text="Community Posts: 1" />
+                </VBox>
+            </HBox>
+
+            <VBox styleClass="profile-edit-section" style="-fx-padding: 30 40 10 40;">
+                <Label styleClass="profile-edit-title" text="Game Showcase" />
+
+                <FlowPane hgap="20.0" vgap="20.0" style="-fx-padding: 15 0 0 0;">
+
+                    <VBox alignment="CENTER" prefWidth="170.0" spacing="8.0" styleClass="game-card">
+                        <Rectangle arcHeight="8.0" arcWidth="8.0" fill="#3b5a75" height="220.0" width="145.0" />
+                        <Label styleClass="game-title" text="Deus Ex: Game of the Year" textAlignment="CENTER" wrapText="true" />
+                        <Label styleClass="game-time" text="89 hrs on record" />
+                    </VBox>
+
+                    <VBox alignment="CENTER" prefWidth="170.0" spacing="8.0" styleClass="game-card">
+                        <Rectangle arcHeight="8.0" arcWidth="8.0" fill="#3b5a75" height="220.0" width="145.0" />
+                        <Label styleClass="game-title" text="The Elder Scrolls II: Daggerfall" textAlignment="CENTER" wrapText="true" />
+                        <Label styleClass="game-time" text="34 hrs on record" />
+                    </VBox>
+
+                </FlowPane>
+            </VBox>
+
+            <VBox styleClass="profile-edit-section">
+                <Label styleClass="profile-edit-title" text="Edit Profile Theme" />
+
+                <HBox alignment="CENTER_LEFT" spacing="20.0">
+                    <Label styleClass="auth-label" text="SELECT PROFILE COLOR:" />
+                    <ColorPicker fx:id="colorPicker" onAction="#updatePreviewColor">
+                        <value>
+                            <Color red="0.09" green="0.10" blue="0.13" />
+                        </value>
+                    </ColorPicker>
+                </HBox>
+
+                <Button onAction="#saveProfileChanges" styleClass="auth-primary-btn" text="Save Changes" style="-fx-max-width: 200; -fx-margin: 20 0 0 0;" />
+                <Label fx:id="saveStatusLabel" style="-fx-text-fill: #5c7e10; -fx-padding: 10 0 0 0;" text="" visible="false" />
+            </VBox>
+
+        </VBox>
+    </content>
+</ScrollPane>

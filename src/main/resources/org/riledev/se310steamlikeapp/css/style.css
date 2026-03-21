@@ -246,3 +246,130 @@
 .auth-secondary-btn:hover {
     -fx-text-fill: white;
 }
+
+.profile-container {
+    -fx-padding: 0;
+}
+
+.profile-header {
+    -fx-background-color: #171a21;
+    -fx-padding: 40;
+    -fx-spacing: 30;
+    -fx-alignment: center-left;
+}
+
+.profile-avatar-frame {
+    -fx-border-color: #66c0f4;
+    -fx-border-width: 4;
+    -fx-border-style: solid;
+    -fx-padding: 0;
+    -fx-background-color: #000000;
+}
+
+.profile-username-large {
+    -fx-text-fill: white;
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+}
+
+.profile-status-online {
+    -fx-text-fill: #5c7e10;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.profile-stats-text {
+    -fx-text-fill: #8f98a0;
+    -fx-font-size: 14px;
+}
+
+.profile-edit-section {
+    -fx-padding: 40;
+    -fx-spacing: 20;
+}
+
+.profile-edit-title {
+    -fx-text-fill: #66c0f4;
+    -fx-font-size: 20px;
+    -fx-border-color: transparent transparent #316282 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 0 0 10 0;
+}
+
+.community-container {
+    -fx-padding: 30 40;
+    -fx-spacing: 30;
+}
+
+.composer-box {
+    -fx-background-color: #171a21;
+    -fx-padding: 20;
+    -fx-background-radius: 5;
+    -fx-spacing: 15;
+}
+
+.post-text-area {
+    -fx-control-inner-background: #2a3f5a;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #8f98a0;
+    -fx-border-color: #1b2838;
+    -fx-border-width: 1;
+    -fx-background-radius: 3;
+    -fx-font-size: 14px;
+    -fx-pref-row-count: 3;
+}
+
+.post-text-area:focused {
+    -fx-border-color: #66c0f4;
+}
+
+.post-action-button {
+    -fx-background-color: #66c0f4;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8 25;
+    -fx-background-radius: 3;
+    -fx-cursor: hand;
+}
+
+.post-action-button:hover {
+    -fx-background-color: #41a3dc;
+}
+
+.community-divider {
+    -fx-border-color: transparent transparent #2a475e transparent;
+    -fx-border-width: 0 0 2 0;
+    -fx-padding: 10 0;
+}
+
+.post-container {
+    -fx-background-color: #171a21;
+    -fx-padding: 20;
+    -fx-background-radius: 5;
+    -fx-spacing: 15;
+}
+
+.post-avatar-frame {
+    -fx-border-color: #3b5a75;
+    -fx-border-width: 2;
+    -fx-padding: 0;
+    -fx-background-color: black;
+}
+
+.post-username {
+    -fx-text-fill: #66c0f4;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.post-date {
+    -fx-text-fill: #8f98a0;
+    -fx-font-size: 12px;
+}
+
+.post-content {
+    -fx-text-fill: #acb2b8;
+    -fx-font-size: 14px;
+    -fx-wrap-text: true;
+    -fx-line-spacing: 4px;
+}
