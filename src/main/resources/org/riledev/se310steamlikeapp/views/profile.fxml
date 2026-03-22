@@ -19,7 +19,7 @@
             <HBox fx:id="profileHeaderBackground" styleClass="profile-header">
 
                 <VBox styleClass="profile-avatar-frame">
-                    <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="false">
+                    <ImageView fx:id="profileAvatar" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="false" onMouseClicked="#handleAvatarClick" style="-fx-cursor: hand;">
                         <image>
                             <Image url="@../assets/profile/default.jpg" />
                         </image>
@@ -27,10 +27,11 @@
                 </VBox>
 
                 <VBox alignment="CENTER_LEFT" spacing="5.0">
-                    <Label styleClass="profile-username-large" text="student_dev" />
+                    <Label fx:id="usernameLabel" styleClass="profile-username-large" text="Username" />
                     <Label styleClass="profile-status-online" text="Online" />
-                    <Label styleClass="profile-stats-text" text="Games Owned: 2" style="-fx-padding: 15 0 0 0;" />
-                    <Label styleClass="profile-stats-text" text="Community Posts: 1" />
+
+                    <Label fx:id="gamesOwnedLabel" styleClass="profile-stats-text" text="Games Owned: 0" style="-fx-padding: 15 0 0 0;" />
+                    <Label fx:id="postsLabel" styleClass="profile-stats-text" text="Community Posts: 0" />
                 </VBox>
             </HBox>
 

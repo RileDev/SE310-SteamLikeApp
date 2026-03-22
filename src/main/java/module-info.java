@@ -3,6 +3,7 @@ module org.riledev.se310steamlikeapp {
     requires javafx.fxml;
     requires java.sql;
     requires jbcrypt;
+    requires java.desktop;
 
     opens org.riledev.se310steamlikeapp to javafx.fxml;
     exports org.riledev.se310steamlikeapp;

@@ -27,7 +27,7 @@ public class SessionManager {
     }
 
     public User getCurrentUser(){
-        return this.getCurrentUser();
+        return this.currentUser;
     }
 
     public boolean isUserLoggedIn(){

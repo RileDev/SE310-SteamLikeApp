@@ -86,4 +86,38 @@ public class UserRepository {
 
         return false;
     }
+
+    public boolean updateProfileColor(int userId, String hexColor) {
+        String sql = "UPDATE User SET profile_color = ? WHERE id = ?";
+
+        try (PreparedStatement pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement(sql)) {
+
+            pstmt.setString(1, hexColor);
+            pstmt.setInt(2, userId);
+
+            return pstmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Database error occurred while updating profile color.");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updateProfilePicturePath(int userId, String path) {
+        String sql = "UPDATE User SET profile_picture_path = ? WHERE id = ?";
+
+        try (PreparedStatement pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement(sql)) {
+
+            pstmt.setString(1, path);
+            pstmt.setInt(2, userId);
+
+            return pstmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Database error occurred while updating profile picture.");
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
