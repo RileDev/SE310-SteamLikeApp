@@ -6,7 +6,9 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
@@ -16,15 +18,22 @@ import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
+
+import org.riledev.se310steamlikeapp.models.Game;
 import org.riledev.se310steamlikeapp.models.User;
+import org.riledev.se310steamlikeapp.repositories.LibraryRepository;
 import org.riledev.se310steamlikeapp.repositories.UserRepository;
 import org.riledev.se310steamlikeapp.services.session.SessionManager;
-import java.util.Objects;
+import org.riledev.se310steamlikeapp.util.GameCard;
 
 public class ProfileController {
 
     @FXML
     private HBox profileHeaderBackground;
+
+    @FXML
+    private FlowPane gamesShowcase;
 
     @FXML
     private ColorPicker colorPicker;
@@ -39,6 +48,7 @@ public class ProfileController {
 
     private User currentUser;
     private final UserRepository userRepository = new UserRepository();
+    private final LibraryRepository libraryRepository = new LibraryRepository();
 
     @FXML
     public void initialize() {
@@ -73,6 +83,8 @@ public class ProfileController {
             System.err.println("Error while attempting to load avatar image.");
             e.printStackTrace();
         }
+
+        displayGamesShowcase();
     }
 
     @FXML
@@ -159,6 +171,26 @@ public class ProfileController {
             e.printStackTrace();
             showStatusMessage("Error copying image file.", true);
         }
+    }
+
+    private void displayGamesShowcase(){
+        gamesShowcase.getChildren().clear();
+
+        List<Game> ownedGames = libraryRepository.getOwnedGames(currentUser.getId());
+        gamesOwnedLabel.setText("Games Owned: " + ownedGames.size());
+
+        if(ownedGames.isEmpty()){
+            Label emptyLabel = new Label("Your library is empty. Visit the store!");
+            emptyLabel.setStyle("-fx-text-fill: #8f98a0; -fx-font-size: 18px;");
+            gamesShowcase.getChildren().add(emptyLabel);
+            return;
+        }
+
+        for (Game game : ownedGames){
+            VBox gameCard = GameCard.createGameCard(game, GameCard.GameCardSize.SMALL, false);
+            gamesShowcase.getChildren().add(gameCard);
+        }
+
     }
 
     private void showStatusMessage(String message, boolean isError) {

@@ -38,7 +38,7 @@
             <VBox styleClass="profile-edit-section" style="-fx-padding: 30 40 10 40;">
                 <Label styleClass="profile-edit-title" text="Game Showcase" />
 
-                <FlowPane hgap="20.0" vgap="20.0" style="-fx-padding: 15 0 0 0;">
+                <FlowPane fx:id="gamesShowcase" hgap="20.0" vgap="20.0" style="-fx-padding: 15 0 0 0;">
 
                     <VBox alignment="CENTER" prefWidth="170.0" spacing="8.0" styleClass="game-card">
                         <Rectangle arcHeight="8.0" arcWidth="8.0" fill="#3b5a75" height="220.0" width="145.0" />
