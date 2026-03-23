@@ -42,4 +42,19 @@ public class LibraryRepository {
 
         return ownedGames;
     }
+
+    public boolean doesUserOwnGame(int userId, int gameId) {
+        String sql = "SELECT 1 FROM LibraryItem WHERE user_id = ? AND game_id = ?";
+        try (PreparedStatement pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement(sql)) {
+            pstmt.setInt(1, userId);
+            pstmt.setInt(2, gameId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            System.err.println("Database error checking game ownership.");
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

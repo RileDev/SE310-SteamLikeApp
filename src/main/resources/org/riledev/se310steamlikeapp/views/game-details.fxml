@@ -3,26 +3,28 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 
 <ScrollPane fitToWidth="true" styleClass="library-background" stylesheets="@../css/style.css"
             xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.riledev.se310steamlikeapp.controllers.GameDetailsController">
     <content>
         <HBox spacing="40.0" style="-fx-padding: 40;">
-            <Rectangle arcHeight="15.0" arcWidth="15.0" fill="#3b5a75" height="450.0" width="300.0" />
+
+            <ImageView fx:id="gameCoverImage" fitHeight="450.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="false" />
 
             <VBox spacing="20.0" HBox.hgrow="ALWAYS">
-                <Label styleClass="details-title" text="Clair Obscur: Expedition 33" />
-                <Label styleClass="details-description" text="Lead Expedition 33 in their quest to destroy the Paintress so she can never paint death again. Explore wonders and absurdities of a dreamlike world, in this evolution of turn-based RPGs with real-time mechanics. Keep in mind that Maelle, Lune and Verso are characters from the game." wrapText="true" />
+                <Label fx:id="gameTitleLabel" styleClass="details-title" text="Game Title" />
+                <Label fx:id="gameDescLabel" styleClass="details-description" text="Game description goes here..." wrapText="true" />
 
                 <VBox spacing="15.0" style="-fx-background-color: #171a21; -fx-padding: 20; -fx-background-radius: 5; -fx-max-width: 400;">
-                    <Label style="-fx-text-fill: white; -fx-font-size: 16px;" text="Buy Clair Obscur: Expedition 33" />
+                    <Label style="-fx-text-fill: white; -fx-font-size: 16px;" text="Purchase this game" />
                     <HBox alignment="CENTER_LEFT" spacing="20.0">
-                        <Label styleClass="price-tag" style="-fx-font-size: 18px;" text="€ 49.99" />
-                        <Button styleClass="buy-button" text="Add to Cart / Buy" />
+                        <Label fx:id="gamePriceLabel" styleClass="price-tag" style="-fx-font-size: 18px;" text="€ 0.00" />
+
+                        <Button fx:id="purchaseButton" onAction="#handlePurchaseClick" styleClass="buy-button" text="Add to Cart / Buy" />
                     </HBox>
                 </VBox>
 

@@ -27,7 +27,7 @@ public class GameCard {
         LARGE
     }
 
-    public static VBox createGameCard(Game game, GameCardSize size, boolean showButton) {
+    public static VBox createGameCard(Game game, GameCardSize size, boolean showPlayButton, boolean displayPlaytime) {
         VBox card = new VBox();
 
         double width = (size == GameCardSize.SMALL) ? WIDTH_S : WIDTH_L;
@@ -70,13 +70,16 @@ public class GameCard {
         titleLabel.setWrapText(true);
         titleLabel.setStyle("-fx-text-alignment: center;");
 
-        Label timeLabel = new Label("0 hrs on record");
-        timeLabel.getStyleClass().add("game-time");
+        card.getChildren().add(titleLabel);
 
-        card.getChildren().addAll(titleLabel, timeLabel);
+        if(displayPlaytime){
+            Label timeLabel = new Label("0 hrs on record");
+            timeLabel.getStyleClass().add("game-time");
+            card.getChildren().add(timeLabel);
+        }
 
 
-        if(showButton){
+        if(showPlayButton){
             Button actionBtn = new Button("PLAY");
             actionBtn.getStyleClass().add("play-button");
 

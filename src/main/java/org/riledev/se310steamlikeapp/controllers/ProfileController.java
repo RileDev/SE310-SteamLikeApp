@@ -187,7 +187,7 @@ public class ProfileController {
         }
 
         for (Game game : ownedGames){
-            VBox gameCard = GameCard.createGameCard(game, GameCard.GameCardSize.SMALL, false);
+            VBox gameCard = GameCard.createGameCard(game, GameCard.GameCardSize.SMALL, false, true);
             gamesShowcase.getChildren().add(gameCard);
         }
 

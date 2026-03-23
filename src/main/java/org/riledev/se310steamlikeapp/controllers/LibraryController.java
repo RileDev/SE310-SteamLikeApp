@@ -48,7 +48,7 @@ public class LibraryController {
         }
 
         for (Game game : ownedGames){
-            VBox gameCard = GameCard.createGameCard(game, GameCard.GameCardSize.LARGE, true);
+            VBox gameCard = GameCard.createGameCard(game, GameCard.GameCardSize.LARGE, true, true);
             gamesGrid.getChildren().add(gameCard);
         }
     }
