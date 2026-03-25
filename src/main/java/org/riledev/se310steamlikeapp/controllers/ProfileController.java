@@ -56,6 +56,7 @@ public class ProfileController {
         if(currentUser == null) return;
 
         usernameLabel.setText(currentUser.getUsername());
+        gamesOwnedLabel.setText("Games Owned: " + libraryRepository.getOwnedGamesCount(currentUser.getId()));
 
         String savedColor = currentUser.getProfileColor();
         if (savedColor != null && !savedColor.isEmpty()) {
@@ -177,7 +178,6 @@ public class ProfileController {
         gamesShowcase.getChildren().clear();
 
         List<Game> ownedGames = libraryRepository.getOwnedGames(currentUser.getId());
-        gamesOwnedLabel.setText("Games Owned: " + ownedGames.size());
 
         if(ownedGames.isEmpty()){
             Label emptyLabel = new Label("Your library is empty. Visit the store!");

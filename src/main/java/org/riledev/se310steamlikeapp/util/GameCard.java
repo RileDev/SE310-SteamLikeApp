@@ -83,7 +83,9 @@ public class GameCard {
             Button actionBtn = new Button("PLAY");
             actionBtn.getStyleClass().add("play-button");
 
-            actionBtn.setOnAction(e -> System.out.println("Launching game: " + game.getTitle()));
+            actionBtn.setOnAction(e -> {
+
+            });
             card.getChildren().add(actionBtn);
         }
 

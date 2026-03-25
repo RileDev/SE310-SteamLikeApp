@@ -57,4 +57,21 @@ public class LibraryRepository {
         }
         return false;
     }
+
+    public int getOwnedGamesCount(int userId) {
+        String sql = "SELECT COUNT(*) FROM LibraryItem WHERE user_id = ?";
+
+        try (PreparedStatement pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement(sql)) {
+            pstmt.setInt(1, userId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error counting owned games.");
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

@@ -79,7 +79,20 @@ public class GameDetailsController {
 
     @FXML
     public void handlePurchaseClick(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/riledev/se310steamlikeapp/views/payment.fxml"));
+            Node paymentView = loader.load();
 
+            PaymentController paymentController = loader.getController();
+            paymentController.setGame(currentGame);
+
+            Node source = (Node) event.getSource();
+            BorderPane mainContainer = (BorderPane) source.getScene().getRoot();
+            mainContainer.setCenter(paymentView);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToWidth="true" styleClass="library-background" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.riledev.se310steamlikeapp.controllers.PaymentController">
+    <content>
+        <VBox alignment="CENTER" spacing="30.0" style="-fx-padding: 60;">
+            <Label styleClass="details-title" text="CHECKOUT" />
+
+            <VBox spacing="15.0" style="-fx-background-color: #171a21; -fx-padding: 30; -fx-background-radius: 5; -fx-max-width: 500;">
+
+                <Label style="-fx-text-fill: white; -fx-font-size: 18px;" text="Order Summary" />
+                <Label fx:id="gameTitleLabel" styleClass="game-title" text="Game Title" />
+                <Label fx:id="gamePriceLabel" styleClass="price-tag" style="-fx-font-size: 20px;" text="€ 0.00" />
+
+                <Region style="-fx-border-color: transparent transparent #2a475e transparent; -fx-border-width: 0 0 1 0; -fx-padding: 10 0;" />
+
+                <Label styleClass="auth-label" text="SELECT PAYMENT METHOD" />
+
+                <fx:define>
+                    <ToggleGroup fx:id="paymentGroup" />
+                </fx:define>
+
+                <RadioButton fx:id="paypalRadio" text="PayPal" toggleGroup="$paymentGroup" selected="true" style="-fx-text-fill: white;" />
+                <RadioButton fx:id="mastercardRadio" text="MasterCard" toggleGroup="$paymentGroup" style="-fx-text-fill: white;" />
+                <RadioButton fx:id="steamWalletRadio" text="Steam Wallet" toggleGroup="$paymentGroup" style="-fx-text-fill: white;" />
+
+                <Label fx:id="statusLabel" style="-fx-text-fill: #ff5555;" visible="false" />
+
+                <HBox spacing="15.0" style="-fx-padding: 20 0 0 0;">
+                    <Button onAction="#confirmPurchase" styleClass="buy-button" text="Confirm Purchase" />
+                    <Button onAction="#cancelPurchase" styleClass="nav-button" text="Cancel" />
+                </HBox>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>
