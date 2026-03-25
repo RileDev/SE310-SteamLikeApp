@@ -10,6 +10,8 @@ import javafx.scene.layout.BorderPane;
 import org.riledev.se310steamlikeapp.models.Game;
 import org.riledev.se310steamlikeapp.models.User;
 import org.riledev.se310steamlikeapp.repositories.OrderRepository;
+import org.riledev.se310steamlikeapp.services.events.EventBus;
+import org.riledev.se310steamlikeapp.services.events.PurchaseEvent;
 import org.riledev.se310steamlikeapp.services.payment.MasterCard;
 import org.riledev.se310steamlikeapp.services.payment.Payment;
 import org.riledev.se310steamlikeapp.services.payment.Paypal;
@@ -38,7 +40,7 @@ public class PaymentController {
     }
 
     @FXML
-    public void confirmPurchase(ActionEvent event) {
+    public void confirmPurchase(ActionEvent eventAction) {
         User currentUser = SessionManager.getInstance().getCurrentUser();
         if (currentUser == null || gameToBuy == null) return;
 
@@ -56,8 +58,10 @@ public class PaymentController {
         boolean success = orderRepository.processPurchase(currentUser.getId(), gameToBuy, paymentMethod);
 
         if (success) {
+            PurchaseEvent event = new PurchaseEvent(currentUser, gameToBuy);
+            EventBus.getInstance().publish(event);
             System.out.println("Purchase successful! Redirecting to Store.");
-            navigateTo("/org/riledev/se310steamlikeapp/views/store.fxml", event);
+            navigateTo("/org/riledev/se310steamlikeapp/views/store.fxml", eventAction);
         } else {
             statusLabel.setText("Payment failed. Please try again.");
             statusLabel.setVisible(true);

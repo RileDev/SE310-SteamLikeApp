@@ -8,6 +8,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import org.riledev.se310steamlikeapp.models.Game;
+import org.riledev.se310steamlikeapp.services.launch.Launcher;
+import org.riledev.se310steamlikeapp.services.launch.LauncherFactory;
 
 import java.io.InputStream;
 
@@ -84,7 +86,13 @@ public class GameCard {
             actionBtn.getStyleClass().add("play-button");
 
             actionBtn.setOnAction(e -> {
+                Launcher launcher = LauncherFactory.getLauncher();
 
+                if(launcher != null){
+                    launcher.launch(game);
+                }else{
+                    System.out.println("Could not launch game: Unsupported OS.");
+                }
             });
             card.getChildren().add(actionBtn);
         }
