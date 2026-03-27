@@ -17,6 +17,11 @@ import org.riledev.se310steamlikeapp.util.GameCard;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Kontroler za ekran prodavnice igara.
+ * Prikazuje listu svih dostupnih igara i omogucava pretragu po nazivu.
+ * Klikom na karticu igre otvara se ekran sa detaljima.
+ */
 public class StoreController {
     @FXML private FlowPane gamesGrid;
     @FXML private TextField searchField;
@@ -24,11 +29,20 @@ public class StoreController {
 
     private final GameRepository gameRepository = new GameRepository();
 
+    /**
+     * Inicijalizuje prodavnicu ucitavanjem svih igara.
+     */
     @FXML
     public void initialize() {
         loadGames(gameRepository.getAllGames());
     }
 
+    /**
+     * Obradjuje pretragu igara po kljucnoj reci.
+     * Ako je polje za pretragu prazno, prikazuje sve igre.
+     *
+     * @param event ActionEvent iz polja za pretragu
+     */
     @FXML
     public void handleSearch(ActionEvent event) {
         String keyword = searchField.getText();
@@ -41,6 +55,11 @@ public class StoreController {
         }
     }
 
+    /**
+     * Ucitava i prikazuje listu igara u gridu.
+     *
+     * @param games lista igara za prikaz
+     */
     private void loadGames(List<Game> games) {
         gamesGrid.getChildren().clear();
 
@@ -51,6 +70,7 @@ public class StoreController {
             return;
         }
 
+        // Kreiranje malih kartica bez Play dugmeta, sa klikom za otvaranje detalja
         for (Game game : games) {
             VBox gameCard = GameCard.createGameCard(game, GameCard.GameCardSize.SMALL, false, false);
             gameCard.setOnMouseClicked(event -> openGameDetails(event, game));
@@ -58,12 +78,18 @@ public class StoreController {
         }
     }
 
-
+    /**
+     * Otvara stranicu sa detaljima o izabranoj igri.
+     *
+     * @param event MouseEvent od klika na karticu
+     * @param game izabrana igra
+     */
     private void openGameDetails(MouseEvent event, Game game) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/riledev/se310steamlikeapp/views/game-details.fxml"));
             Node gameDetailsView = loader.load();
 
+            // Prosledjivanje podataka o igri GameDetailsController-u
             GameDetailsController controller = loader.getController();
             controller.setGame(game);
 

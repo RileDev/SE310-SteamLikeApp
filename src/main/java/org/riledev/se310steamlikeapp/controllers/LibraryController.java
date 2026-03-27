@@ -19,39 +19,53 @@ import org.riledev.se310steamlikeapp.util.GameCard;
 import java.io.InputStream;
 import java.util.List;
 
+/**
+ * Kontroler za prikaz korisnicke biblioteke igara.
+ * Prikazuje sve kupljene igre trenutno ulogovanog korisnika
+ * u vidu kartica sa opcijom za pokretanje.
+ */
 public class LibraryController {
     @FXML
     private FlowPane gamesGrid;
 
     private LibraryRepository libraryRepository = new LibraryRepository();
 
+    /**
+     * Inicijalizuje ekran biblioteke.
+     * Ucitava igre iz biblioteke trenutno ulogovanog korisnika.
+     */
     @FXML
     public void initialize() {
         User currentUser = SessionManager.getInstance().getCurrentUser();
 
-        if(currentUser != null)
+        if (currentUser != null)
             loadLibraryGames(currentUser.getId());
         else
             System.out.println("No active session found for Library.");
     }
 
+    /**
+     * Ucitava i prikazuje igre iz korisnicke biblioteke.
+     *
+     * @param id ID korisnika cija se biblioteka ucitava
+     */
     private void loadLibraryGames(int id) {
         gamesGrid.getChildren().clear();
 
         List<Game> ownedGames = libraryRepository.getOwnedGames(id);
 
-        if(ownedGames.isEmpty()){
+        if (ownedGames.isEmpty()) {
             Label emptyLabel = new Label("Your library is empty. Visit the store!");
             emptyLabel.setStyle("-fx-text-fill: #8f98a0; -fx-font-size: 18px;");
             gamesGrid.getChildren().add(emptyLabel);
             return;
         }
 
-        for (Game game : ownedGames){
+        // Kreiranje velikih kartica sa PLAY dugmetom i prikazom vremena igranja
+        for (Game game : ownedGames) {
             VBox gameCard = GameCard.createGameCard(game, GameCard.GameCardSize.LARGE, true, true);
             gamesGrid.getChildren().add(gameCard);
         }
     }
-
 
 }

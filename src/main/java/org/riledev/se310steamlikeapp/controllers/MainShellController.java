@@ -7,6 +7,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Button;
 import java.io.IOException;
 
+/**
+ * Glavni kontroler za navigacioni okvir aplikacije (Shell).
+ * Upravlja navigacionom trakom i dinamickim ucitavanjem pogleda
+ * u centralni deo BorderPane kontejnera.
+ */
 public class MainShellController {
 
     @FXML
@@ -21,6 +26,9 @@ public class MainShellController {
     @FXML
     private Button profileButton;
 
+    /**
+     * Inicijalizuje navigacione dogadjaje za svako dugme u meniju.
+     */
     @FXML
     public void initialize() {
         storeButton.setOnAction(e -> switchView("views/store.fxml", storeButton));
@@ -29,6 +37,13 @@ public class MainShellController {
         profileButton.setOnAction(e -> switchView("views/profile.fxml", profileButton));
     }
 
+    /**
+     * Ucitava zadati FXML pogled u centralni deo glavnog kontejnera
+     * i azurira aktivno stanje navigacionog dugmeta.
+     *
+     * @param fxmlPath relativna putanja do FXML fajla
+     * @param activeBtn dugme koje treba oznaciti kao aktivno
+     */
     private void switchView(String fxmlPath, Button activeBtn) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/riledev/se310steamlikeapp/" + fxmlPath));
@@ -36,6 +51,7 @@ public class MainShellController {
 
             mainContainer.setCenter(view);
 
+            // Azuriranje vizuelnog stanja navigacione trake
             resetNavStyles();
             activeBtn.getStyleClass().add("active-nav");
 
@@ -44,6 +60,7 @@ public class MainShellController {
         }
     }
 
+    /** Uklanja "active-nav" stilsku klasu sa svih navigacionih dugmadi. */
     private void resetNavStyles() {
         storeButton.getStyleClass().remove("active-nav");
         libraryButton.getStyleClass().remove("active-nav");

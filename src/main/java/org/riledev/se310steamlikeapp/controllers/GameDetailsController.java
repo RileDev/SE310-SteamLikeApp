@@ -18,6 +18,11 @@ import org.riledev.se310steamlikeapp.services.session.SessionManager;
 
 import java.io.IOException;
 
+/**
+ * Kontroler za prikaz detalja o pojedinacnoj igri.
+ * Prikazuje naslovnu sliku, opis, cenu i omogucava korisnicima
+ * da pređu na ekran za kupovinu ili se vrate u prodavnicu.
+ */
 public class GameDetailsController {
 
     @FXML private Label gameTitleLabel;
@@ -26,15 +31,23 @@ public class GameDetailsController {
     @FXML private ImageView gameCoverImage;
     @FXML private Button purchaseButton;
 
+    /** Igra ciji se detalji prikazuju. */
     private Game currentGame;
     private final LibraryRepository libraryRepository = new LibraryRepository();
 
+    /**
+     * Postavlja igru i popunjava UI elemente njenim podacima.
+     * Takodje proverava da li korisnik vec poseduje igru.
+     *
+     * @param game igra ciji se detalji prikazuju
+     */
     public void setGame(Game game) {
         this.currentGame = game;
 
         gameTitleLabel.setText(game.getTitle());
         gameDescLabel.setText(game.getDescription());
 
+        // Prikaz cene ili oznake "Free to Play"
         if (game.getPrice() == 0.0) {
             gamePriceLabel.setText("Free to Play");
             gamePriceLabel.getStyleClass().add("price-tag-free");
@@ -42,6 +55,7 @@ public class GameDetailsController {
             gamePriceLabel.setText("€ " + String.format("%.2f", game.getPrice()));
         }
 
+        // Ucitavanje naslovne slike igre
         try {
             String imagePath = "/org/riledev/se310steamlikeapp" + game.getCoverImagePath();
             java.io.InputStream imageStream = getClass().getResourceAsStream(imagePath);
@@ -49,6 +63,7 @@ public class GameDetailsController {
             if (imageStream != null) {
                 gameCoverImage.setImage(new Image(imageStream));
 
+                // Zaobljeni uglovi slike
                 Rectangle clip = new Rectangle(300, 450);
                 clip.setArcWidth(15);
                 clip.setArcHeight(15);
@@ -63,6 +78,10 @@ public class GameDetailsController {
         checkOwnershipAndDisableButton();
     }
 
+    /**
+     * Proverava da li korisnik vec poseduje igru
+     * i onemogucava dugme za kupovinu ako je vec u biblioteci.
+     */
     private void checkOwnershipAndDisableButton() {
         User currentUser = SessionManager.getInstance().getCurrentUser();
 
@@ -77,12 +96,18 @@ public class GameDetailsController {
         }
     }
 
+    /**
+     * Otvara ekran za kupovinu sa prosledjenim podacima o igri.
+     *
+     * @param event ActionEvent iz dugmeta za kupovinu
+     */
     @FXML
     public void handlePurchaseClick(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/riledev/se310steamlikeapp/views/payment.fxml"));
             Node paymentView = loader.load();
 
+            // Prosledjivanje podataka o igri PaymentController-u
             PaymentController paymentController = loader.getController();
             paymentController.setGame(currentGame);
 
@@ -95,6 +120,11 @@ public class GameDetailsController {
         }
     }
 
+    /**
+     * Vraca korisnika na ekran prodavnice.
+     *
+     * @param event ActionEvent iz dugmeta za povratak
+     */
     @FXML
     public void goBackToStore(ActionEvent event) {
         try {

@@ -9,7 +9,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Repozitorijum za pristup igrama u prodavnici.
+ * Obezbeduje preuzimanje svih igara i pretragu po kljucnoj reci.
+ */
 public class GameRepository {
+
+    /**
+     * Preuzima sve igre iz baze, sortirane od najnovije ka najstarijoj.
+     *
+     * @return lista svih igara u prodavnici
+     */
     public List<Game> getAllGames() {
         List<Game> games = new ArrayList<>();
         String sql = "SELECT * FROM Game ORDER BY added_date DESC";
@@ -37,11 +47,18 @@ public class GameRepository {
         return games;
     }
 
+    /**
+     * Pretrazuje igre po kljucnoj reci u nazivu (LIKE upit).
+     *
+     * @param keyword kljucna rec za pretragu
+     * @return lista igara ciji naziv sadrzi kljucnu rec
+     */
     public List<Game> searchGames(String keyword) {
         List<Game> games = new ArrayList<>();
         String sql = "SELECT * FROM Game WHERE title LIKE ? ORDER BY added_date DESC";
 
         try (PreparedStatement pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement(sql)) {
+            // Wildcard pretraga - trazi igre ciji naziv sadrzi kljucnu rec
             pstmt.setString(1, "%" + keyword + "%");
 
             try (ResultSet rs = pstmt.executeQuery()) {

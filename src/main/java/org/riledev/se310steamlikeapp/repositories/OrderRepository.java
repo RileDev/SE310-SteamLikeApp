@@ -9,14 +9,33 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Repozitorijum za obradu narudzbina i kupovine igara.
+ * Koristi transakcioni pristup sa tri koraka: kreiranje narudzbine,
+ * dodavanje stavke narudzbine i dodavanje igre u biblioteku korisnika.
+ */
 public class OrderRepository {
 
+    /**
+     * Obradjuje kompletnu kupovinu igre u okviru jedne transakcije.
+     * Transakcija obuhvata tri operacije:
+     * 1. Kreiranje zapisa u StoreOrder tabeli
+     * 2. Kreiranje stavke narudzbine u OrderItem tabeli
+     * 3. Dodavanje igre u korisnikovu biblioteku (LibraryItem tabela)
+     *
+     * @param userId ID korisnika koji kupuje igru
+     * @param game igra koja se kupuje
+     * @param paymentMethod naziv metode placanja (npr. "paypal")
+     * @return true ako je transakcija uspesno izvrsena
+     */
     public boolean processPurchase(int userId, Game game, String paymentMethod) {
         Connection conn = DatabaseConnection.getInstance().getConnection();
 
         try {
+            // Iskljucivanje auto-commit-a za transakciono upravljanje
             conn.setAutoCommit(false);
 
+            // Korak 1: Kreiranje narudzbine
             String orderSql = "INSERT INTO StoreOrder (user_id, total_amount) VALUES (?, ?)";
             int orderId = -1;
 
@@ -25,6 +44,7 @@ public class OrderRepository {
                 orderStmt.setDouble(2, game.getPrice());
                 orderStmt.executeUpdate();
 
+                // Preuzimanje generisanog ID-a narudzbine
                 try (ResultSet generatedKeys = orderStmt.getGeneratedKeys()) {
                     if (generatedKeys.next()) {
                         orderId = generatedKeys.getInt(1);
@@ -34,6 +54,7 @@ public class OrderRepository {
                 }
             }
 
+            // Korak 2: Kreiranje stavke narudzbine sa cenom u trenutku kupovine
             String itemSql = "INSERT INTO OrderItem (order_id, game_id, price_at_purchase, payment_method) VALUES (?, ?, ?, ?)";
             try (PreparedStatement itemStmt = conn.prepareStatement(itemSql)) {
                 itemStmt.setInt(1, orderId);
@@ -43,6 +64,7 @@ public class OrderRepository {
                 itemStmt.executeUpdate();
             }
 
+            // Korak 3: Dodavanje igre u korisnikovu biblioteku
             String librarySql = "INSERT INTO LibraryItem (user_id, game_id) VALUES (?, ?)";
             try (PreparedStatement libStmt = conn.prepareStatement(librarySql)) {
                 libStmt.setInt(1, userId);
@@ -50,10 +72,12 @@ public class OrderRepository {
                 libStmt.executeUpdate();
             }
 
+            // Potvrda transakcije
             conn.commit();
             return true;
 
         } catch (SQLException e) {
+            // Ponistavanje transakcije u slucaju greske
             try {
                 conn.rollback();
                 System.err.println("Transaction rolled back due to error.");
@@ -63,6 +87,7 @@ public class OrderRepository {
             e.printStackTrace();
             return false;
         } finally {
+            // Vracanje auto-commit-a na podrazumevanu vrednost
             try {
                 conn.setAutoCommit(true);
             } catch (SQLException e) {
