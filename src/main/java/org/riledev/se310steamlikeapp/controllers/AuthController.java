@@ -59,8 +59,12 @@ public class AuthController {
         String username = loginUsernameField.getText();
         String password = loginPasswordField.getText();
 
+        // DEBUG ALAT: Prikaz sirovih vrednosti pre prosledjivanja repozitorijumu
+        System.out.println("[DEBUG] AuthController.handleLogin -> Pokusaj prijave za username: '" + username + "'");
+
         // Provera da li su sva polja popunjena
         if (InputValidator.isAuthFieldEmpty(username, password, null)) {
+            System.out.println("[DEBUG] AuthController.handleLogin -> Validacija pala: Polja su prazna.");
             showMessage("Please fill in all fields.", true);
             return;
         }
@@ -68,10 +72,12 @@ public class AuthController {
         User loggedInUser = userRepository.login(username, password);
 
         if (loggedInUser != null) {
+            System.out.println("[DEBUG] AuthController.handleLogin -> Prijava uspesna, objekat User: " + loggedInUser.getId());
             // Pokretanje sesije i prelazak na glavni ekran
             SessionManager.getInstance().loginUser(loggedInUser);
             loadMainShell(event);
         } else {
+            System.out.println("[DEBUG] AuthController.handleLogin -> Prijava pala: Pogresni podaci ili neaktivan nalog.");
             showMessage("Invalid username or password.", true);
         }
     }
@@ -86,7 +92,10 @@ public class AuthController {
         String password = regPasswordField.getText();
         String confirmPassword = regConfirmPasswordField.getText();
 
+        System.out.println("[DEBUG] AuthController.handleRegister -> Pokrenut proces za korisnika: " + username);
+
         if (InputValidator.isAuthFieldEmpty(username, password, confirmPassword)) {
+            System.out.println("[DEBUG] AuthController.handleRegister -> Prekinuto (Input validator okinuo grešku)");
             showMessage("Please fill in all fields.", true);
             return;
         }
@@ -94,6 +103,7 @@ public class AuthController {
         boolean success = userRepository.register(username, password, confirmPassword);
 
         if (success) {
+            System.out.println("[DEBUG] AuthController.handleRegister -> Registracija vracena kao uspesna iz baze.");
             showMessage("Registration successful! Please sign in.", false);
             clearRegForm();
             showLoginForm();

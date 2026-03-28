@@ -44,7 +44,9 @@ public class SessionManager {
      */
     public void loginUser(User user) {
         this.currentUser = user;
-        System.out.println("Session started for user: " + user.getUsername());
+        if (user != null) {
+            System.out.println("Session started for user: " + user.getUsername());
+        }
     }
 
     /**

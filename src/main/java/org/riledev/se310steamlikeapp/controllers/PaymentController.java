@@ -65,8 +65,16 @@ public class PaymentController {
     @FXML
     public void confirmPurchase(ActionEvent eventAction) {
         User currentUser = SessionManager.getInstance().getCurrentUser();
-        if (currentUser == null || gameToBuy == null)
+        
+        // DEBUG ALAT: Provera u kom trenutku započinjemo kupovinu
+        System.out.println("[DEBUG] PaymentController.confirmPurchase -> Korisnik ID: " + 
+            (currentUser != null ? currentUser.getId() : "N/A") + ", Igra: " + 
+            (gameToBuy != null ? gameToBuy.getTitle() : "N/A"));
+
+        if (currentUser == null || gameToBuy == null) {
+            System.out.println("[DEBUG] PaymentController.confirmPurchase -> Prekid: Nedostaje korisnik ili igra.");
             return;
+        }
 
         // Izbor konkretne strategije placanja (Strategy obrazac)
         Payment paymentStrategy;
@@ -79,17 +87,20 @@ public class PaymentController {
         }
 
         String paymentMethod = paymentStrategy.makePayment();
+        System.out.println("[DEBUG] PaymentController.confirmPurchase -> Odabrana strategija: " + paymentMethod);
 
         // Obrada transakcije kroz OrderRepository
         boolean success = orderRepository.processPurchase(currentUser.getId(), gameToBuy, paymentMethod);
 
         if (success) {
+            System.out.println("[DEBUG] PaymentController.confirmPurchase -> Transakcija u bazi uspesna. Kreiram PurchaseEvent.");
             // Emitovanje dogadjaja kupovine za NotificationService i SocialService
             PurchaseEvent event = new PurchaseEvent(currentUser, gameToBuy);
             EventBus.getInstance().publish(event);
             System.out.println("Purchase successful! Redirecting to Store.");
             navigateTo("/org/riledev/se310steamlikeapp/views/store.fxml", eventAction);
         } else {
+            System.out.println("[DEBUG] PaymentController.confirmPurchase -> Transakcija pala.");
             statusLabel.setText("Payment failed. Please try again.");
             statusLabel.setVisible(true);
         }
